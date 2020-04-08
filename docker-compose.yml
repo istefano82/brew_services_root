@@ -17,6 +17,23 @@ services:
     networks:
       - brew
 
+  services:
+    brew_warehouse:
+      build: ./brew_warehouse_service/app
+      volumes:
+        - ./brew_warehouse_service/app/:/usr/src/app/
+      environment: 
+        - HOST=0.0.0.0
+        - PORT=8002
+      ports:
+        - 8002:8002
+      env_file:
+        - ./brew_warehouse_service/.env.dev
+      depends_on:
+          - db
+      networks:
+        - brew
+
   db:
     image: postgres:12.0-alpine
     volumes:
