@@ -5,6 +5,7 @@ services:
     build: ./brew_auth_service/app
     volumes:
       - ./brew_auth_service/app/:/usr/src/app/
+      - static_volume:/usr/src/app/staticfiles
     environment: 
       - HOST=0.0.0.0
       - PORT=8001
@@ -17,41 +18,48 @@ services:
     networks:
       - brew
 
-  services:
-    brew_warehouse:
-      build: ./brew_warehouse_service/app
-      volumes:
-        - ./brew_warehouse_service/app/:/usr/src/app/
-      environment: 
-        - HOST=0.0.0.0
-        - PORT=8002
-      ports:
-        - 8002:8002
-      env_file:
-        - ./brew_warehouse_service/.env.dev
-      depends_on:
-          - db
-      networks:
-        - brew
+  # brew_warehouse:
+  #   build: ./brew_warehouse_service/app
+  #   volumes:
+  #     - ./brew_warehouse_service/app/:/usr/src/app/
+  #   environment: 
+  #     - HOST=0.0.0.0
+  #     - PORT=8002
+  #   ports:
+  #     - 8002:8002
+  #   env_file:
+  #     - ./brew_warehouse_service/.env.dev
+  #   depends_on:
+  #       - db
+  #   networks:
+  #     - brew
 
   db:
     image: postgres:12.0-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_brew
+      - POSTGRES_PASSWORD=hello_brew
+      - POSTGRES_DB=hello_brew_dev
     networks:
       - brew
 
   nginx:
     build: ./nginx
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
     ports:
       - 80:80
     depends_on:
       - brew_auth
+      # - brew_warehouse
     networks:
       - brew
 
 volumes:
   postgres_data:
+  static_volume:
 
 networks:
   brew:
