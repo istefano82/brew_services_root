@@ -12,7 +12,10 @@ help:
 #-----------------------------------------------------------------------------
 
 clean:
-	rm -rf brew_sales_service, brew_warehouse_service, brew_auth_service, brew_nginx_service
+	-rm -rf brew_sales_service
+	-rm -rf brew_warehouse_service,
+	-rm -rf	brew_auth_service,
+	-rm -rf brew_nginx_service
 
 clone:
 	@echo "Cloning microservices"
@@ -21,7 +24,7 @@ clone:
 	git clone https://github.com/istefano82/brew_warehouse_service.git
 	git clone https://github.com/istefano82/brew_nginx_service.git
 
-docker-run-dev: clone
+docker-run-dev: clean clone
 	docker-compose -f docker-compose.yml up --build
 
 
