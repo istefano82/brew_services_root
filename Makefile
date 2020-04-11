@@ -15,7 +15,7 @@ clone:
 	git clone https://github.com/istefano82/brew_auth_service.git
 	git clone https://github.com/istefano82/brew_warehouse_service.git
 
-docker_run_dev: clone
+docker-run-dev: clone
 	docker-compose -f docker-compose.yml up --build
 
 
