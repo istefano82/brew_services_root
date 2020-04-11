@@ -26,13 +26,13 @@
  
  ### Microservice endpoints behind nginx proxy
   * AUTH service - http://0.0.0.0/
-  * Sales service - http://0.0.0.0/brew_sales/
-  * AUTH service - http://0.0.0.0/brew_warehouse/
+  * Warehouse service - http://0.0.0.0/brew_sales/
+  * Sales service - http://0.0.0.0/brew_warehouse/
   
  ### Microservice endpoints direct
   * AUTH service - http://0.0.0.0:8001/
-  * Sales service - http://0.0.0.0:8002
-  * AUTH service - http://0.0.0.0:8003
+  * Warehouse service - http://0.0.0.0:8002
+  * Sales service - http://0.0.0.0:8003
  
  When Using web SWAGGER API client make sure you authorize with Sales, Warehouse services with the 
  JWT tokern returned from registration/login (Hint: Authorizaion should be located top right corner)
