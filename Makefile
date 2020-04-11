@@ -25,7 +25,7 @@ clone: clean
 	git clone https://github.com/istefano82/brew_nginx_service.git
 
 docker-run-dev: clone
-	docker-compose -f docker-compose.yml up --build
+	docker-compose -f docker-compose.yml up --build -d
 
 
 
