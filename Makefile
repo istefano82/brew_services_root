@@ -12,9 +12,9 @@ help:
 #-----------------------------------------------------------------------------
 
 clean:
+	-rm -rf brew_auth_service
 	-rm -rf brew_sales_service
-	-rm -rf brew_warehouse_service,
-	-rm -rf	brew_auth_service,
+	-rm -rf	brew_warehouse_service
 	-rm -rf brew_nginx_service
 
 clone:
