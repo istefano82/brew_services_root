@@ -1,13 +1,18 @@
 .DEFAULT_GOAL := help
 
+
 help:
 	@echo "Defined targets:"
 	@echo "----------------"
 	@echo "help               	This text"
+	@echo "clean	            Remove microservices directories"
 	@echo "clone              	Clone configured microservices"
 	@echo "docker-run-dev     	Run the service in dev mode (in Linux guest only)"
 
 #-----------------------------------------------------------------------------
+
+clean:
+	rm -rf brew_sales_service, brew_warehouse_service, brew_auth_service, brew_nginx_service
 
 clone:
 	@echo "Cloning microservices"
