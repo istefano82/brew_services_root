@@ -64,7 +64,7 @@ services:
       - brew
 
   nginx:
-    build: ./nginx
+    build: ./brew_nginx_service/
     volumes:
       - static_volume:/usr/src/app/staticfiles
     ports:
