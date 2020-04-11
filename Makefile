@@ -17,14 +17,14 @@ clean:
 	-rm -rf	brew_warehouse_service
 	-rm -rf brew_nginx_service
 
-clone:
+clone: clean
 	@echo "Cloning microservices"
 	git clone https://github.com/istefano82/brew_sales_service.git
 	git clone https://github.com/istefano82/brew_auth_service.git
 	git clone https://github.com/istefano82/brew_warehouse_service.git
 	git clone https://github.com/istefano82/brew_nginx_service.git
 
-docker-run-dev: clean clone
+docker-run-dev: clone
 	docker-compose -f docker-compose.yml up --build
 
 
