@@ -14,14 +14,25 @@
  ```
     make docker-run-dev
 ```
+ * Change the example settings in each of the .env files (Project root and microservices) to your preference
 ## Usage:
-
+### Get API reference
  * http://0.0.0.0/swagger/ - Authentication microservice Swagger API
  * curl http://0.0.0.0/swagger.json - CLI API description
  * http://0.0.0.0:8002/swagger/ - Warehouse microservice Swagger API
  * curl http://0.0.0.0:8002/swagger.json - CLI API description
  * http://0.0.0.0:8003/swagger/ - Sales microservice Swagger API
  * curl http://0.0.0.0:8003/swagger.json - CLI API description
+ 
+ ### Microservice endpoints behind nginx proxy
+  * AUTH service - http://0.0.0.0/
+  * Sales service - http://0.0.0.0/brew_sales/
+  * AUTH service - http://0.0.0.0/brew_warehouse/
+  
+ ### Microservice endpoints direct
+  * AUTH service - http://0.0.0.0:8001/
+  * Sales service - http://0.0.0.0:8002
+  * AUTH service - http://0.0.0.0:8003
  
  When Using web SWAGGER API client make sure you authorize with Sales, Warehouse services with the 
  JWT tokern returned from registration/login (Hint: Authorizaion should be located top right corner)
@@ -32,6 +43,8 @@
   2. Copy the returned JWT token without quotes:
   ```eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJ1c2VybmFtZSI6InN0cmluZyIsImV4cCI6MTU4NjYzNTU2NiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwib3JpZ19pYXQiOjE1ODY2MzE5NjZ9.yoOmqSDkqQf41eD2EEqgoMiKSXlDmeiyPMoiwlbk6oI```
   3. Create warehouse item use the JWT token in authorizaion header
+  ```curl -X POST "http://0.0.0.0/brew_warehose/api/v0/brew_warehouse/warehouse_item/" -H  "accept: application/json" -H  "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6InN0cmluZyIsImV4cCI6MTU4NjYzNTU3NywiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwib3JpZ19pYXQiOjE1ODY2MzE5Nzd9.U3pi1PxspB8-uhcdR0gZKDP2INUyUXFd__E9988PKrQ" -H  "Content-Type: application/json" -H  "X-CSRFToken: rskfKZ9RAxOyYptECKnvy1qAo4axf7FlzSSy16gOvwXRWepHUVhtJvEG7U9lpikZ" -d "{  \"title\": \"Beer Keg\",  \"content\": \"Light beer keg\",  \"quantity\": 10}"```
+  or
   ```curl -X POST "http://0.0.0.0:8002/api/v0/brew_warehouse/warehouse_item/" -H  "accept: application/json" -H  "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6InN0cmluZyIsImV4cCI6MTU4NjYzNTU3NywiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwib3JpZ19pYXQiOjE1ODY2MzE5Nzd9.U3pi1PxspB8-uhcdR0gZKDP2INUyUXFd__E9988PKrQ" -H  "Content-Type: application/json" -H  "X-CSRFToken: rskfKZ9RAxOyYptECKnvy1qAo4axf7FlzSSy16gOvwXRWepHUVhtJvEG7U9lpikZ" -d "{  \"title\": \"Beer Keg\",  \"content\": \"Light beer keg\",  \"quantity\": 10}"```
   4. List warehouse items use the JWT token in authorizaion header
   ```curl -X GET "http://0.0.0.0:8002/api/v0/brew_warehouse/warehouse_item/" -H  "accept: application/json" -H  "Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0LCJ1c2VybmFtZSI6InN0cmluZyIsImV4cCI6MTU4NjYzNTU3NywiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwib3JpZ19pYXQiOjE1ODY2MzE5Nzd9.U3pi1PxspB8-uhcdR0gZKDP2INUyUXFd__E9988PKrQ" -H  "X-CSRFToken: rskfKZ9RAxOyYptECKnvy1qAo4axf7FlzSSy16gOvwXRWepHUVhtJvEG7U9lpikZ"```
@@ -48,7 +61,6 @@
   * Run test suits 
     ```python manage.py test```
      
- 
   ## "Microbrewery module diagram
  ![](./docs/MicroBrewModuleDiagram.png)
  
